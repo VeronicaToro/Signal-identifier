@@ -18,8 +18,8 @@ from sklearn.preprocessing import StandardScaler
 # The following files are contained in the repository and are meant to be used
 # for testing the algorithms.
 
-#fy = np.load('BPSK_Dataset_1024_500datos_minus20to18SNR_25datoscu.npy')
-fy = np.load('BFSK_Dataset_1024_500datos_minus20to18SNR_25datoscu.npy')
+#fy = np.load('BPSK_Dataset.npy')
+fy = np.load('BFSK_Dataset.npy')
 
 # fy contains 500 rows which are 500 signals with different SNRs. Here we take the
 # 400th row. The data to be processed by the Parameters class is the FFT of the signal.
