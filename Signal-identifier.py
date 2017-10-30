@@ -9,6 +9,8 @@ Description:    Uploads a file containing data for testing propouses and
                 calculates the amplitude, frecuency, bandwidth and modulation
                 of the signal. There are only two posible modulations so far:
                 BPSK and BFSK.
+NOTE:   The Support Vector Machine model used in this algorithm was done 
+        using the Scikit learn version 0.18.1
 """
 import numpy as np
 from Parameters import main
