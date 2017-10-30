@@ -262,7 +262,7 @@ def main(ffty,Parameters_cls=Parameters, options=None):
         entry=2     # Second approximation is set
         # The input signal for this second approx. is the residual function
         fy=abs(Param.fty-sinc)
-        Param = Parametros_cls(entry,fy)
+        Param = Parameters_cls(entry,fy)
         Err=100000.0
         while Err>0.05:
             Param.Amplitud()
