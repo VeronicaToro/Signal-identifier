@@ -4,6 +4,9 @@
 Created on Mon May 1 11:56:24 2017
 
 @author: Veronica Toro
+
+Description:    This code makes use of different models to approximate the amplitude,
+                frequency and bandwith of a signal by analysing its FFT.
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -59,7 +62,7 @@ class Parameters():
 
 
     def Amplitud(self):
-        # It is defined again the main lobe
+        # It is defined the main lobe again
         gp=find_nearest(self.alpha*(self.freq[self.off:]-self.offset),1)
         gm=find_nearest(self.alpha*(self.freq[:self.off]-self.offset),-1)
         self.MainLobe=np.arange(gm,self.off+gp,1)
@@ -86,27 +89,36 @@ class Parameters():
     def Offset(self):
         j=0
         deltaOffset=np.zeros(2)
+        # This routine runs until the offset moves one unit to a direction and then returns
         while deltaOffset[-1]*deltaOffset[-2]>=0:
+            # It is defined the main lobe again
             gp=find_nearest(self.alpha*(self.freq[self.off:]-self.offset),1)
             gm=find_nearest(self.alpha*(self.freq[:self.off]-self.offset),-1)
             self.MainLobe=np.arange(gm,self.off+gp,1)
+            
             Lmain=len(self.MainLobe)
             V=abs(self.fty-self.sinc)
             cl=np.min([np.max(V[self.MainLobe[0]:self.off]),np.max(self.sinc[self.MainLobe[0]:self.off])])
+            
+            # The "mass" produced by the left side of the main lobe, taking the offset of the sinc as the pivot
             ML=0
             for i in range(self.MainLobe[0],self.off+1):
                 ML=ML+np.clip(V[i],0,cl)-np.clip(self.sinc[i],0,cl)
             ML=ML/Lmain
             cl=np.min([np.max(V[self.off:self.MainLobe[-1]]),np.max(self.sinc[self.off:self.MainLobe[-1]])])
+            
+            # The "mass" produced by the right side of the main lobe, taking the offset of the sinc as the pivot
             MR=0
             for i in range(self.off,self.MainLobe[-1]+1):
                 MR=MR+np.clip(V[i],0,cl)-np.clip(self.sinc[i],0,cl)
             MR=MR/Lmain
+            
+            # If the left side procudes a bigger torque, a step to the left is taken
             if ML-MR > 0:
-                deltaOffset[j]=1
-            else:
                 deltaOffset[j]=-1
-            self.offset=self.offset+1*deltaOffset[j]
+            else:
+                deltaOffset[j]=1
+            self.offset=self.offset+deltaOffset[j]
             self.sinc=self.amp*abs(np.sinc(self.alpha*(self.freq-self.offset)))
             self.off=self.sinc.argmax()
             j+=1
@@ -115,13 +127,15 @@ class Parameters():
     def Width(self):
         beta=1
         j=1
-        Errores=np.array([2e3,1e3,1])
+        Errors=np.array([2e3,1e3,1])
         Alphas=np.zeros(3,dtype='float')
-        #El criterio de parada se definió por un error cuadrático medio
-        for i in range(50):
+        # The stop of the routine was defined by a mean squared error
+        for i in range(50):     # Runs 50 times
+            # It is defined the main lobe again
             gp=find_nearest(self.alpha*(self.freq[self.off:]-self.offset),1)
             gm=find_nearest(self.alpha*(self.freq[:self.off]-self.offset),-1)
             self.MainLobe=np.arange(gm,self.off+gp,1)
+            
             V=np.clip(abs(self.fty-self.sinc),0,self.amp)
             num=0.0
             den=0.0
@@ -148,17 +162,24 @@ class Parameters():
             deltaWidth=(1-beta)*Ev+beta*Eh
             self.alpha=0.9487*self.alpha-1*deltaWidth
             self.sinc=self.amp*abs(np.sinc(self.alpha*(self.freq-self.offset)))
+            
+            # Normalized mean squared error
             Err=(mse(self.fty[self.MainLobe[0]:self.MainLobe[-1]],self.sinc[self.MainLobe[0]:self.MainLobe[-1]]))/self.amp
             j+=1
-            Errores=np.resize(Errores,j+1)
-            Errores[j]=Err
+            Errors=np.resize(Errors,j+1)
+            Errors[j]=Err
             Alphas=np.resize(Alphas,j+1)
             Alphas[j]=self.alpha
-        idx=np.argmin(Errores)
+            
+        # It is taken the width at which the error was minimum
+        idx=np.argmin(Errors)
         self.sinc=self.amp*abs(np.sinc(Alphas[idx]*(self.freq-self.offset)))
+        
+        # It is not necessary to keep these vectors
         Errores=[]
         Alphas=[]
 
+# This function computes the nearest point to 'value' in 'array'
 def find_nearest(array,value):
     idx = (np.abs(array-value)).argmin()
     return idx
@@ -272,7 +293,7 @@ def main(ffty,Parametros_cls=Parametros, options=None):
 
 
     # In case that two approximations were made, it is calculated whether the center frequencies
-    # are separated by as much 50 kHz. If so, it is considered that they belong to the same signal
+    # are separated as much as 50 kHz. If so, it is considered that they belong to the same signal
     # so the given parameters are an average of the already calculated parameters 
     if entry==2:
         if abs(freq-freq2) <= 50e3:
