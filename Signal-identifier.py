@@ -28,7 +28,7 @@ f=fy[400,1:]
 ffty=abs(np.fft.fft(f))
 main(ffty)     # Here is obtained and printed the amplitude, frecuency and bandwidth of the signal
 
-mlp=joblib.load('SVM_lin_LinearKernel_C1.pkl') # Uploads an already trained Neural Network model
+mlp=joblib.load('SVM_lin_LinearKernel_C1.pkl') # Uploads an already trained Support Vector Machine model
 
 # Data pre-processing
 Hil=hilbert(f)
