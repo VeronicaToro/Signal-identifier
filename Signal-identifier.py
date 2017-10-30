@@ -14,6 +14,7 @@ import numpy as np
 from Parameters import main
 from sklearn.externals import joblib
 from sklearn.preprocessing import StandardScaler
+from scipy.signal import hilbert
 
 # The following files are contained in the repository and are meant to be used
 # for testing the algorithms.
