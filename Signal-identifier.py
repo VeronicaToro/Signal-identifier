@@ -39,6 +39,6 @@ X=X.reshape(1,-1)
 
 R=mlp.predict(X)
 if R==0:
-    print 'The signal has a BPSK modulation'
+    print 'The signal has a BFSK modulation'
 else:
-    print 'The signal has a  BFSK modulation'
+    print 'The signal has a  BPSK modulation'
