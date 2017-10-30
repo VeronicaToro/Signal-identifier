@@ -184,8 +184,8 @@ def find_nearest(array,value):
     idx = (np.abs(array-value)).argmin()
     return idx
 
-def main(ffty,Parametros_cls=Parametros, options=None):
-#def main(Parametros_cls=Parametros, options=None):    # In case you want to run it alone and not from an external code
+def main(ffty,Parameters_cls=Parameters, options=None):
+#def main(Parameters_cls=Parameters, options=None):    # In case you want to run it alone and not from an external code
 
     # These are the provided dataset
 #    fy = np.load('BPSK_Dataset.npy')
@@ -197,7 +197,7 @@ def main(ffty,Parametros_cls=Parametros, options=None):
 
     #entry=1 is for the first approximation
     entry=1
-    Param = Parametros_cls(entry,ffty)  # Initializes the class
+    Param = Parameters_cls(entry,ffty)  # Initializes the class
     
     # An initial error is defined and it begins an interation over different parameters
     Err=100000.0
