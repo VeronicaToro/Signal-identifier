@@ -27,8 +27,17 @@ fy = np.load('BFSK_Dataset.npy')
 ffty=abs(np.fft.fft(fy[400,1:]))
 main(ffty)     # Here is obtained and printed the amplitude, frecuency and bandwidth of the signal
 
-
+scaler = StandardScaler()
 mlp=joblib.load('NN_Lin_3Layers_10Percep.pkl') # Uploads an already trained Neural Network model
+
+# Data pre-processing
+Hil=hilbert(f)
+instphase=np.unwrap(np.angle(Hil))
+std=np.std(instphase)
+X=np.array([std,0])
+X=X.reshape(1,-1)
+scaler.fit(X)
+
 R=mlp.predict(scaler.transform(fy[400,1:]))
 if R==0:
     print 'The signal has a BPSK modulation'
