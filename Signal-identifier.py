@@ -24,11 +24,11 @@ fy = np.load('BFSK_Dataset.npy')
 # fy contains 500 rows which are 500 signals with different SNRs. Here we take the
 # 400th row. The data to be processed by the Parameters class is the FFT of the signal.
 
-ffty=abs(np.fft.fft(fy[400,1:]))
+f=fy[400,1:]
+ffty=abs(np.fft.fft(f))
 main(ffty)     # Here is obtained and printed the amplitude, frecuency and bandwidth of the signal
 
-scaler = StandardScaler()
-mlp=joblib.load('NN_Lin_3Layers_10Percep.pkl') # Uploads an already trained Neural Network model
+mlp=joblib.load('SVM_lin_LinearKernel_C1.pkl') # Uploads an already trained Neural Network model
 
 # Data pre-processing
 Hil=hilbert(f)
@@ -36,9 +36,8 @@ instphase=np.unwrap(np.angle(Hil))
 std=np.std(instphase)
 X=np.array([std,0])
 X=X.reshape(1,-1)
-scaler.fit(X)
 
-R=mlp.predict(scaler.transform(fy[400,1:]))
+R=mlp.predict(X)
 if R==0:
     print 'The signal has a BPSK modulation'
 else:
