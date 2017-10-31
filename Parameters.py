@@ -176,7 +176,7 @@ class Parameters():
         self.sinc=self.amp*abs(np.sinc(Alphas[idx]*(self.freq-self.offset)))
         
         # It is not necessary to keep these vectors
-        Errores=[]
+        Errors=[]
         Alphas=[]
 
 # This function computes the nearest point to 'value' in 'array'
