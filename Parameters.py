@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error as mse
 from Amplitude_Envelope import Amplitude_Envelope
 import random
+import math
 
 class Parameters():
 
@@ -70,6 +71,7 @@ class Parameters():
         landa=0.5   # Smoother parameter
         # The stop of the routine was defined by a mean squared error
         Err=100
+        j=1
         while Err>=10:
             self.sinc=abs(np.sinc(self.alpha*(self.freq-self.offset)))
             V=abs(self.fty-self.sinc)   # Residual function which is the difference between the signal and the approximation
@@ -83,7 +85,16 @@ class Parameters():
             
             # Normalized mean squared error
             Err=(mse(self.fty[self.MainLobe[0]:self.MainLobe[-1]],self.sinc[self.MainLobe[0]:self.MainLobe[-1]]))/self.amp
+            
+            # If it takes a lot of cycles isn't probably come to a solution so we better return to the initial value
+            if j>=10:
+                self.amp=np.max(self.fty)
+                break
+            j+=1
         self.sinc=self.amp*abs(np.sinc(self.alpha*(self.freq-self.offset)))     # Updates the sinc approximation
+        # If it returns a nan, we better return to the initial value
+        if math.isnan(self.amp):
+            self.amp=np.max(self.fty)
 
 
     def Offset(self):
@@ -113,7 +124,7 @@ class Parameters():
                 MR=MR+np.clip(V[i],0,cl)-np.clip(self.sinc[i],0,cl)
             MR=MR/Lmain
             
-            # If the left side procudes a bigger torque, a step to the left is taken
+            # If the left side produces a bigger torque, a step to the left is taken
             if ML-MR > 0:
                 deltaOffset[j]=-1
             else:
