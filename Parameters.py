@@ -12,6 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error as mse
 from Amplitude_Envelope import Amplitude_Envelope
+from scipy.interpolate import interp1d
 import random
 import math
 
