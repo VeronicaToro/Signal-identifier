@@ -312,7 +312,7 @@ def main(ffty,Parameters_cls=Parameters, options=None):
             amp=max(amp,amp2)
             freq=abs(freq-freq2)/2.0+min(freq,freq2)
             band=band+band2
-            print 'Ambas aproximaciones pertenecen a una misma señal'
+            print 'Both approximations are part of the same signal'
             print 'Amplitude: ', amp
             print 'Frequency: ', freq
             print 'Bandwidth: ', band
