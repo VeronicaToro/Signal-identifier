@@ -35,6 +35,12 @@ class Amplitude_Envelope():
             self.Amp_env_peak=np.concatenate([self.Amp_env_peak,ynew])
             i+=1
         self.Amp_env_peak=np.delete(self.Amp_env_peak,0)
+        j+=1
+        maxs[i]=ae[-1]
+        fx=interp1d([maxs[i-1],maxs[i]],[ae[maxs[i-1]],ae[maxs[i]]],bounds_error=False,fill_value="extrapolate")
+        xa=np.arange(maxs[i-1],len(ae))
+        ynew=fx(xa)
+        self.Amp_env_peak=np.concatenate([self.Amp_env_peak,ynew])
         return self.Amp_env_peak
 
 
