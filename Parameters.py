@@ -26,7 +26,7 @@ class Parameters():
         if entry==1:    # This is the first approximation
             _fc=abs(_ffty[:int(len(_ffty)/2)])
             
-            # In order to somilate a frequency offset in the BPSK signals,
+            # In order to simulate a frequency offset in the BPSK signals,
             # a shift FFT was done and it was centered in a random value
             PSK=0   # Set to 1 when using BPSK signals from the provided datasets
             if PSK:
@@ -37,7 +37,7 @@ class Parameters():
                 _fyc[idx:]=_fc[:-idx]
             else:
                 _fyc=_fc
-            plt.plot(_fyc, color='r' ,label=u'Señal')
+            plt.plot(_fyc, color='r' ,label=u'Signal')
             
         elif entry==2:    # This is the second approximation
             _fyc=_ffty
@@ -223,9 +223,9 @@ def main(ffty,Parameters_cls=Parameters, options=None):
     ErrTodo=(mse(Param.fty,Param.sinc))/Param.amp
 
 ###############################################################################
-#                               Amplitud
+#                               Amplitude
 #   (Here it is used a reception-power characterization of an Ettus N210)
-#                   You woudn't probably need this
+#                   You wouldn't probably need this
 ###############################################################################
     Carac=np.load('Rx_Power_Characterization_Gain_0_Regression.npy')
     if ((Param.offset/2.0)>=144e6) and ((Param.offset/2.0)<=148e6):
