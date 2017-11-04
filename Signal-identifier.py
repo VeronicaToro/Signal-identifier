@@ -10,7 +10,7 @@ Description:    Uploads a file containing data for testing propouses and
                 of the signal. There are only two posible modulations so far:
                 BPSK and BFSK.
 NOTE:   The Support Vector Machine model used in this algorithm was done 
-        using the Scikit learn version 0.18.1
+        using the scikit-learn version 0.18.1 and joblib version 0.11
 """
 import numpy as np
 from Parameters import main
