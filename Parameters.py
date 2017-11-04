@@ -266,7 +266,7 @@ def main(ffty,Parameters_cls=Parameters, options=None):
     print 'Frequency: ', freq
     print 'Bandwidth: ', band
 
-    plt.plot(sinc,color='g',label=u'Aproximación final')
+#    plt.plot(sinc,color='g',label=u'Aproximación final')
     plt.plot(Param.fty,color='k',label=u'Aproximación por picos')
 
     # If the remaining error is bigger than 0.007, then another approximation takes place
@@ -288,7 +288,7 @@ def main(ffty,Parameters_cls=Parameters, options=None):
         freq2=Param.offset/2.0
         band2=Param.freq_re[Param.MainLobe[-1]]-Param.freq_re[Param.MainLobe[0]]
 
-        plt.plot(sinc2,color='g',label=u'Aproximación final')
+        plt.plot(sinc+sinc2,color='g',label=u'Aproximación final')
         plt.plot(Param.fty,color='k',label=u'Aproximación por picos')
 
         print 'Amplitude: ', amp2
