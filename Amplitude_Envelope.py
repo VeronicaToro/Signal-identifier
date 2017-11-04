@@ -25,8 +25,9 @@ class Amplitude_Envelope():
     def Amp_env(self):
         ae=abs(self.fy)
         maxs=np.zeros(int(len(ae)/float(self.c))+2)
+        maxs[0]=ae[0]
         self.Amp_env_peak[0]=ae[0]
-        i=0
+        i=1
         for j in np.arange(1,int(len(ae)),self.c):
             maxs[i]=ae[j:j+self.c].argmax()+j
             fx=interp1d([maxs[i-1],maxs[i]],[ae[maxs[i-1]],ae[maxs[i]]])
