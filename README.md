@@ -11,10 +11,10 @@ Each of these files contains 500 simulated signals composed by 1024 time-sampled
 These datasets were used in the training phase of the Artificial Neural Networks used for the modulation classification.
 
 # Prerequisites
-To run this you must have scikit-learn version 0.18.1 and joblib version 0.11. You can install them by running on your Ubuntu console
+To run this you must have scikit-learn version 0.18.1 and joblib version 0.11. You can install them by running on your console
 ```
-sudo pip install scikit-learn==0.18.1
+pip install scikit-learn==0.18.1
 ```
 ```
-sudo pip install joblib==0.11
+pip install joblib==0.11
 ```
