@@ -18,7 +18,7 @@ pip install scikit-learn==0.18.1
 ```
 pip install joblib==0.11
 ```
-Or you can use it as a python enviroment and use the requirements.txt file to install all of the packages needed to run this code. To run the file execute the following line
+Or you can use it as a python enviroment and use the requirements.txt file to install all of the packages needed to run this code. Once you are in the python enviroment, run the file by executing the following line
 ```
 pip install -r requirements.txt
 ```
