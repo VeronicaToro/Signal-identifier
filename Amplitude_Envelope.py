@@ -6,9 +6,9 @@ Created on Fri Jun  9 09:42:18 2017
 @author: Veronica Toro
 
 Description:    This code works as a library to calculate a peak approximation
-                of the input signals. It evaluates windows of c data and takes 
+                of the input signals. It evaluates windows of c data and takes
                 two peaks within for a linear interpolation.
-                Returns a vector of the same length as the input signal which 
+                Returns a vector of the same length as the input signal which
                 contains the approximation.
 """
 import numpy as np
@@ -30,7 +30,7 @@ class Amplitude_Envelope():
         i=1
         for j in np.arange(1,int(len(ae)),self.c):
             maxs[i]=ae[j:j+self.c].argmax()+j
-            fx=interp1d([maxs[i-1],maxs[i]],[ae[maxs[i-1]],ae[maxs[i]]])
+            fx=interp1d([maxs[i-1],maxs[i]],[ae[int(maxs[i-1].item())],ae[int(maxs[i].item())]])
             xa=np.arange(maxs[i-1],maxs[i])
             ynew=fx(xa)
             self.Amp_env_peak=np.concatenate([self.Amp_env_peak,ynew])
@@ -38,7 +38,7 @@ class Amplitude_Envelope():
         self.Amp_env_peak=np.delete(self.Amp_env_peak,0)
         j+=1
         maxs[i]=ae[-1]
-        fx=interp1d([maxs[i-1],maxs[i]],[ae[maxs[i-1]],ae[maxs[i]]],bounds_error=False,fill_value="extrapolate")
+        fx=interp1d([maxs[i-1],maxs[i]],[ae[int(maxs[i-1].item())],ae[int(maxs[i].item())]],bounds_error=False,fill_value="extrapolate")
         xa=np.arange(maxs[i-1],len(ae))
         ynew=fx(xa)
         self.Amp_env_peak=np.concatenate([self.Amp_env_peak,ynew])
