@@ -22,6 +22,10 @@ Or you can use it as a python enviroment and use the requirements.txt file to in
 ```
 pip install -r requirements.txt
 ```
-# Cite this as
+
+## More information
+Information about how this algorithms work can be found [here](https://acris.aalto.fi/ws/portalfiles/portal/53890672/Signal_detection_and_modulation_classification_for_satellite_communications.pdf).
+
+## Cite this as
 Toro Betancur, V., Carmona Valencia, A., & Marulanda Bernal, J. I. (2020). Signal Detection and Modulation Classification for Satellite Communications. In Proceedings of the 2020 3rd International Conference on Signal Processing and Machine Learning (pp. 114–118). Association for Computing Machinery (ACM).
 https://doi.org/10.1145/3432291.3432297
